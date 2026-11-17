@@ -2,148 +2,111 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mundo de los Dinosaurios</title>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: "Times New Roman", Georgia, serif;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-
-      background-image: url("img/fondo.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+    :root{ --neon:#b6ff5c; --neon2:#5cffc8; --txt:#e9f1ea; }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; display:flex; flex-direction:column;
+      font-family:"Space Grotesk",system-ui,sans-serif; color:var(--txt);
+      background:
+        radial-gradient(ellipse at 20% 0%, rgba(92,255,200,.12), transparent 55%),
+        linear-gradient(180deg, rgba(4,10,8,.80), rgba(4,10,8,.93)),
+        url("img/fondo.jpg") center/cover fixed no-repeat;
     }
-
-    /* CABECERA */
-    header {
-      background-color: rgba(18, 45, 28, 0.95);
-      color: #f1f8e9;
-      padding: 40px 15px;
-      border-bottom: 5px solid #c9a14a; /* ámbar */
+    header{ text-align:center; padding:72px 20px 40px }
+    .tag{
+      display:inline-block; font-size:12px; letter-spacing:.3em; text-transform:uppercase; color:var(--neon);
+      border:1px solid rgba(182,255,92,.4); border-radius:999px; padding:7px 16px; margin-bottom:22px;
+      background:rgba(182,255,92,.07);
     }
-
-    header h1 {
-      margin: 0;
-      font-size: 44px;
-      letter-spacing: 3px;
-      text-shadow: 
-        2px 2px 0 #000,
-        0 0 8px rgba(201,161,74,0.6);
+    h1{
+      margin:0; font-weight:700; font-size:clamp(34px,6.5vw,72px); line-height:1.05; letter-spacing:-.02em;
     }
-
-    header p {
-      margin-top: 12px;
-      font-size: 18px;
-      opacity: 0.85;
+    h1 span{
+      background:linear-gradient(90deg,var(--neon),var(--neon2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
     }
+    header p{ margin:18px auto 0; max-width:600px; font-size:clamp(15px,2vw,19px); color:#a9bcaf }
 
-    main {
-      padding: 60px 20px;
+    main{flex:1; padding:20px 20px 70px}
+    .menu{
+      max-width:1100px; margin:0 auto;
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:22px;
     }
-
-    /* MENÚ */
-    .menu {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
+    .card{
+      position:relative; display:block; text-decoration:none; color:inherit; overflow:hidden;
+      padding:30px 26px; border-radius:20px;
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12);
+      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      transition:transform .25s, border-color .25s, box-shadow .25s, background .25s;
     }
-
-    /* BOTONES TIPO LOSA PREHISTÓRICA */
-    .card {
-      width: 260px;
-      padding: 28px 20px;
-      background: linear-gradient(
-        145deg,
-        #e6dcc4,
-        #cfc4a8
-      );
-      border: 4px solid #3e4f3a;
-      border-radius: 6px;
-      box-shadow:
-        inset 0 0 10px rgba(0,0,0,0.4),
-        0 12px 25px rgba(0,0,0,0.7);
-      transition: transform 0.25s, box-shadow 0.25s;
-      position: relative;
+    .card::after{
+      content:""; position:absolute; inset:auto -40% -60% -40%; height:80%;
+      background:radial-gradient(closest-side, rgba(182,255,92,.25), transparent);
+      opacity:0; transition:opacity .3s;
     }
-
-    /* efecto desgaste */
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 4px;
-      border: 1px dashed rgba(0,0,0,0.25);
-      pointer-events: none;
+    .card:hover,.card:focus-visible{
+      transform:translateY(-6px); border-color:var(--neon); background:rgba(255,255,255,.08);
+      box-shadow:0 0 0 1px rgba(182,255,92,.4), 0 18px 45px rgba(0,0,0,.55), 0 0 30px rgba(182,255,92,.18);
     }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow:
-        inset 0 0 12px rgba(0,0,0,0.5),
-        0 18px 35px rgba(0,0,0,0.9);
+    .card:hover::after,.card:focus-visible::after{opacity:1}
+    .card:focus-visible{outline:2px solid var(--neon); outline-offset:3px}
+    .ico{
+      width:56px; height:56px; display:grid; place-items:center; font-size:28px; border-radius:16px;
+      background:linear-gradient(135deg,rgba(182,255,92,.22),rgba(92,255,200,.12));
+      border:1px solid rgba(182,255,92,.35); margin-bottom:20px;
     }
-
-    .card a {
-      text-decoration: none;
-      color: #1f2e1f;
-      font-size: 22px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      text-shadow:
-        1px 1px 0 #f5f0e6,
-        -1px -1px 0 #8d846f;
-      display: block;
-    }
-
-    /* línea tipo grabado */
-    .card a::after {
-      content: "";
-      display: block;
-      margin: 14px auto 0;
-      width: 70%;
-      height: 3px;
-      background: linear-gradient(
-        to right,
-        transparent,
-        #3e4f3a,
-        transparent
-      );
-    }
+    .card h2{margin:0 0 8px; font-size:22px; font-weight:700}
+    .card p{margin:0 0 22px; color:#a9bcaf; font-size:15px; line-height:1.5}
+    .go{color:var(--neon); font-weight:500; font-size:14px; position:relative; z-index:1}
+    .go::after{content:" →"; transition:margin .2s}
+    .card:hover .go::after{margin-left:6px}
+    footer{text-align:center; padding:24px; color:#6f8576; font-size:13px; border-top:1px solid rgba(255,255,255,.08)}
   </style>
 </head>
 <body>
 
 <header>
-  <h1>🦖 Mundo de los Dinosaurios</h1>
+  <div class="tag">Enciclopedia prehistórica</div>
+  <h1>Mundo de los <span>Dinosaurios</span></h1>
   <p>Registro ancestral de las criaturas que dominaron la Tierra</p>
 </header>
 
 <main>
-  <div class="menu">
-
-    <div class="card">
-      <a href="paginas/carnivoros.html">Carnívoros</a>
-    </div>
-
-    <div class="card">
-      <a href="paginas/herbivoros.html">Herbívoros</a>
-    </div>
-
-    <div class="card">
-      <a href="paginas/eras.html">Eras Geológicas</a>
-    </div>
-
-    <div class="card">
-      <a href="paginas/curiosidades.html">Curiosidades</a>
-    </div>
-
-  </div>
+  <nav class="menu" aria-label="Secciones">
+    <a class="card" href="paginas/carnivoros.html">
+      <div class="ico">🦖</div>
+      <h2>Carnívoros</h2>
+      <p>Los grandes depredadores del Triásico, Jurásico y Cretácico.</p>
+      <span class="go">Explorar</span>
+    </a>
+    <a class="card" href="paginas/herbivoros.html">
+      <div class="ico">🌿</div>
+      <h2>Herbívoros</h2>
+      <p>Gigantes de cuello largo, cuernos y armaduras que comían plantas.</p>
+      <span class="go">Explorar</span>
+    </a>
+    <a class="card" href="paginas/eras.html">
+      <div class="ico">🌋</div>
+      <h2>Eras Geológicas</h2>
+      <p>Un viaje de más de 180 millones de años en tres grandes eras.</p>
+      <span class="go">Explorar</span>
+    </a>
+    <a class="card" href="paginas/curiosidades.html">
+      <div class="ico">🔎</div>
+      <h2>Curiosidades</h2>
+      <p>Datos sorprendentes que quizá no sabías sobre los dinosaurios.</p>
+      <span class="go">Explorar</span>
+    </a>
+  </nav>
 </main>
+
+<footer>Página educativa sobre dinosaurios</footer>
 
 </body>
 </html>
