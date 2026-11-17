@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mundo de los Dinosaurios</title>
+
+  <style>
+    body {
+      font-family: "Times New Roman", Georgia, serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+
+      background-image: url("img/fondo.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    /* CABECERA */
+    header {
+      background-color: rgba(18, 45, 28, 0.95);
+      color: #f1f8e9;
+      padding: 40px 15px;
+      border-bottom: 5px solid #c9a14a; /* ámbar */
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 44px;
+      letter-spacing: 3px;
+      text-shadow: 
+        2px 2px 0 #000,
+        0 0 8px rgba(201,161,74,0.6);
+    }
+
+    header p {
+      margin-top: 12px;
+      font-size: 18px;
+      opacity: 0.85;
+    }
+
+    main {
+      padding: 60px 20px;
+    }
+
+    /* MENÚ */
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    /* BOTONES TIPO LOSA PREHISTÓRICA */
+    .card {
+      width: 260px;
+      padding: 28px 20px;
+      background: linear-gradient(
+        145deg,
+        #e6dcc4,
+        #cfc4a8
+      );
+      border: 4px solid #3e4f3a;
+      border-radius: 6px;
+      box-shadow:
+        inset 0 0 10px rgba(0,0,0,0.4),
+        0 12px 25px rgba(0,0,0,0.7);
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative;
+    }
+
+    /* efecto desgaste */
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border: 1px dashed rgba(0,0,0,0.25);
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow:
+        inset 0 0 12px rgba(0,0,0,0.5),
+        0 18px 35px rgba(0,0,0,0.9);
+    }
+
+    .card a {
+      text-decoration: none;
+      color: #1f2e1f;
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow:
+        1px 1px 0 #f5f0e6,
+        -1px -1px 0 #8d846f;
+      display: block;
+    }
+
+    /* línea tipo grabado */
+    .card a::after {
+      content: "";
+      display: block;
+      margin: 14px auto 0;
+      width: 70%;
+      height: 3px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        #3e4f3a,
+        transparent
+      );
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🦖 Mundo de los Dinosaurios</h1>
+  <p>Registro ancestral de las criaturas que dominaron la Tierra</p>
+</header>
+
+<main>
+  <div class="menu">
+
+    <div class="card">
+      <a href="paginas/carnivoros.html">Carnívoros</a>
+    </div>
+
+    <div class="card">
+      <a href="paginas/herbivoros.html">Herbívoros</a>
+    </div>
+
+    <div class="card">
+      <a href="paginas/eras.html">Eras Geológicas</a>
+    </div>
+
+    <div class="card">
+      <a href="paginas/curiosidades.html">Curiosidades</a>
+    </div>
+
+  </div>
+</main>
+
+</body>
+</html>

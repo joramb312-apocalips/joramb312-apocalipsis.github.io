@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Eras Geológicas | Mundo de los Dinosaurios</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Trebuchet MS", serif;
+  color: #f5f5f5;
+  background:
+    linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
+    url("../img/fondo.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+header {
+  background: rgba(30, 70, 40, 0.95);
+  padding: 35px;
+  text-align: center;
+  border-bottom: 3px solid #4caf50;
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 50px 20px;
+}
+
+.era {
+  margin-bottom: 80px;
+  text-align: center;
+}
+
+/* IMAGEN CIRCULAR */
+.era img {
+  width: 420px;          /* más ancho */
+  height: 300px;         /* menos alto */
+  object-fit: cover;
+  border-radius: 60% / 50%; /* óvalo elegante */
+  border: 5px solid #7ecf8b;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+  margin-bottom: 25px;
+}
+.era h2 {
+  margin-top: 25px;
+  color: #b9f6ca;
+}
+
+.era p {
+  line-height: 1.7;
+  max-width: 900px;
+  margin: auto;
+}
+
+.subsections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 35px;
+  justify-content: center;
+}
+
+.card {
+  flex: 1;
+  min-width: 260px;
+  max-width: 420px;
+  background: rgba(20,40,25,0.95);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.card div {
+  padding: 20px;
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #9be7a4;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🌍 Eras Geológicas</h1>
+  <p>La historia de la Tierra durante la era de los dinosaurios</p>
+</header>
+
+<main>
+
+<!-- TRIÁSICO -->
+<section class="era">
+  <img src="../img/triasico.png" alt="Era Triásica">
+  <h2>Triásico (252–208 millones de años)</h2>
+  <p>
+    Pangea dominaba el planeta. El clima era árido y aparecieron
+    los primeros dinosaurios, pequeños y ágiles.
+  </p>
+
+  <div class="subsections">
+    <div class="card">
+      <div>
+        <h3>🦖 Carnívoros</h3>
+        <p>Depredadores primitivos, rápidos y ligeros.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div>
+        <h3>🌿 Herbívoros</h3>
+        <p>Especies pequeñas que se alimentaban de plantas simples.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JURÁSICO -->
+<section class="era">
+  <img src="../img/jurasico.png" alt="Era Jurásica">
+  <h2>Jurásico (201–145 millones de años)</h2>
+  <p>
+    El clima se volvió húmedo. Los continentes comenzaron a separarse
+    y surgieron los dinosaurios gigantes.
+  </p>
+
+  <div class="subsections">
+    <div class="card">
+      <div>
+        <h3>🦖 Carnívoros</h3>
+        <p>Grandes cazadores como el Allosaurus.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div>
+        <h3>🌿 Herbívoros</h3>
+        <p>Colosos de cuello largo que dominaban la vegetación.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CRETÁCICO -->
+<section class="era">
+  <img src="../img/cretacico.png" alt="Era Cretácica">
+  <h2>Cretácico (145–66 millones de años)</h2>
+  <p>
+    Gran diversidad de especies. Aparecen las flores
+    y finaliza con la extinción masiva.
+  </p>
+
+  <div class="subsections">
+    <div class="card">
+      <div>
+        <h3>🦖 Carnívoros</h3>
+        <p>El Tyrannosaurus Rex dominó esta era.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div>
+        <h3>🌿 Herbívoros</h3>
+        <p>Dinosaurios con defensas como el Triceratops.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+</body>
+</html>

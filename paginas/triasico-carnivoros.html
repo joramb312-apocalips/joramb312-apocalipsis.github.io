@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Carnívoros del Triásico</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Trebuchet MS", serif;
+  background: radial-gradient(circle at top, #1b1b1b, #050505);
+  color: #e5e5e5;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* MENU */
+.menu {
+  width: 300px;
+  background: linear-gradient(#1f1f1f, #0b0b0b);
+  padding: 20px;
+  border-right: 3px solid #5a4a32;
+  box-shadow: inset -5px 0 15px rgba(0,0,0,0.8);
+  overflow-y: auto;
+}
+
+.menu h2 {
+  text-align: center;
+  color: #c8b07a;
+  letter-spacing: 2px;
+}
+
+.menu button {
+  width: 100%;
+  background: none;
+  border: 1px solid transparent;
+  color: #ddd;
+  padding: 12px;
+  margin-bottom: 6px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.menu button:hover {
+  background: rgba(200,176,122,0.15);
+  border-color: #6b5b3e;
+}
+
+/* PANEL */
+.panel {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.panel h1 {
+  color: #c8b07a;
+  text-shadow: 0 0 8px #000;
+}
+
+.panel img {
+  width: 520px;
+  max-width: 100%;
+  border-radius: 14px;
+  border: 4px solid #5a4a32;
+  background: #111;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.85);
+  margin-bottom: 25px;
+}
+
+.stats {
+  background: rgba(20,20,20,0.85);
+  padding: 25px;
+  border-radius: 14px;
+  border: 2px solid #4e402c;
+  line-height: 1.7;
+}
+
+.note {
+  margin-top: 35px;
+  font-size: 14px;
+  opacity: 0.8;
+  border-top: 1px solid #4e402c;
+  padding-top: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="menu">
+  <h2>TRIÁSICO</h2>
+  <button onclick="mostrarDino('coelophysis')">Coelophysis</button>
+  <button onclick="mostrarDino('herrerasaurus')">Herrerasaurus</button>
+  <button onclick="mostrarDino('eoraptor')">Eoraptor</button>
+  <button onclick="mostrarDino('daemonosaurus')">Daemonosaurus</button>
+  <button onclick="mostrarDino('staurikosaurus')">Staurikosaurus</button>
+  <button onclick="mostrarDino('tawa')">Tawa hallae</button>
+  <button onclick="mostrarDino('liliensternus')">Liliensternus</button>
+  <button onclick="mostrarDino('camposaurus')">Camposaurus</button>
+  <button onclick="mostrarDino('chindesaurus')">Chindesaurus</button>
+</div>
+
+<div class="panel">
+  <h1 id="nombre">Carnívoros del Triásico</h1>
+  <img id="imagen" src="">
+  <div class="stats" id="info">
+    Selecciona un dinosaurio para ver su información.
+  </div>
+
+  <div class="note">
+    ⚠️ <b>Nota científica:</b>  
+    Durante el Triásico los dinosaurios apenas comenzaban a dominar.
+    Muchos competían con otros reptiles arcosaurios en un mundo hostil.
+  </div>
+</div>
+
+</div>
+
+<script>
+const dinos = {
+
+coelophysis: {
+nombre: "Coelophysis",
+img: "../img/coelophysis.png",
+info: `
+<b>Periodo:</b> Triásico tardío (≈ 216–196 millones de años)<br>
+<b>Dieta estimada:</b> Carnívoro (pequeños reptiles, lagartos, crías)<br>
+<b>Tamaño:</b> 2.7–3 m (270–300 cm / 8.8–9.8 ft)<br>
+<b>Número de dientes:</b> ~60 afilados<br>
+<b>Velocidad estimada:</b> 40–50 km/h<br>
+<b>Significado del nombre:</b> "Forma hueca"<br><br>
+<b>Contexto:</b><br>
+Coelophysis fue uno de los primeros depredadores ágiles de la historia.
+Vivía en grupos, cazaba rápidamente y dominó su ecosistema.
+Representa el inicio del linaje de los grandes terópodos.
+`
+},
+
+herrerasaurus: {
+nombre: "Herrerasaurus",
+img: "../img/herrerasaurus.png",
+info: `
+<b>Periodo:</b> Triásico tardío<br>
+<b>Dieta:</b> Carnívoro<br>
+<b>Tamaño:</b> 4–6 m (13–20 ft)<br>
+<b>Dientes:</b> ~50<br>
+<b>Velocidad:</b> ~45 km/h<br>
+<b>Significado:</b> "Lagarto de Herrera"<br><br>
+Uno de los primeros grandes depredadores bípedos.
+Su anatomía muestra la transición hacia los terópodos avanzados.
+`
+},
+
+eoraptor: {
+nombre: "Eoraptor",
+img: "../img/eoraptor.png",
+info: `
+<b>Periodo:</b> Triásico temprano<br>
+<b>Dieta:</b> Omnívoro / Carnívoro<br>
+<b>Tamaño:</b> 1 m (3.3 ft)<br>
+<b>Dientes:</b> ~30<br>
+<b>Significado:</b> "Ladrón del amanecer"<br><br>
+Probablemente el dinosaurio más cercano al ancestro común.
+`
+},
+daemonosaurus: {
+  nombre: "Daemonosaurus",
+  img: "../img/daemonosaurus.png",
+  info: `
+<b>Periodo:</b> Triásico tardío (≈ 208–201 millones de años)<br>
+<b>Dieta estimada:</b> Carnívoro (pequeños vertebrados, reptiles y posiblemente mamíferos primitivos)<br>
+<b>Tamaño:</b> 1.5–2 m (150–200 cm / 4.9–6.6 ft)<br>
+<b>Número de dientes:</b> Dientes grandes y prominentes en la parte frontal (especialmente premaxilares)<br>
+<b>Velocidad estimada:</b> Alta agilidad, probablemente 40+ km/h<br>
+<b>Significado del nombre:</b> "Lagarto demonio" (de "daimon" = demonio/ espíritu maligno y "sauros" = lagarto)<br><br>
+<b>Contexto:</b><br>
+Pequeño terópodo basal con cráneo corto y dientes grandes y curvados (como "colmillos"). Cazador ágil y posiblemente solitario o en pequeños grupos. Uno de los terópodos más extraños del Triásico tardío en Norteamérica.
+`
+},
+staurikosaurus: {
+  nombre: "Staurikosaurus",
+  img: "../img/staurikosaurus.png",
+  info: `
+<b>Periodo:</b> Triásico tardío (Carniano, ≈ 225 millones de años)<br>
+<b>Dieta:</b> Carnívoro (pequeños vertebrados, reptiles)<br>
+<b>Tamaño:</b> ≈ 2 m (200 cm / 6.6 ft)<br>
+<b>Dientes:</b> 13–14 en la mandíbula inferior, serrados y curvados hacia atrás<br>
+<b>Velocidad:</b> Muy ágil y rápido para su tamaño<br>
+<b>Significado:</b> "Lagarto de la Cruz del Sur" (por la constelación visible en el hemisferio sur)<br><br>
+Carnívoro temprano sudamericano muy ágil. Uno de los dinosaurios más antiguos conocidos, posiblemente herrerasáurido o terópodo basal. Cazador veloz de presas pequeñas.
+`
+},
+tawa: {
+  nombre: "Tawa hallae",
+  img: "../img/tawa_hallae.png",
+  info: `
+<b>Periodo:</b> Triásico tardío (Noriano, ≈ 215–213 millones de años)<br>
+<b>Dieta:</b> Carnívoro (pequeños vertebrados)<br>
+<b>Tamaño:</b> ≈ 2–2.5 m (200–250 cm / 6.6–8.2 ft)<br>
+<b>Dientes:</b> ≈ 29–30 por lado, algunos sin serraciones en premaxila y serrados en maxila/mandíbula<br>
+<b>Velocidad:</b> Ágil y rápido<br>
+<b>Significado:</b> "Dios del sol Tawa" (de la mitología hopi) + "Hall" (por Ruth Hall)<br><br>
+Clave para entender la dispersión de dinosaurios. Terópodo basal con rasgos mixtos (herrerasáurido y neoterópodo). Muestra que los dinosaurios se originaron posiblemente en Gondwana y se dispersaron temprano.
+`
+},
+liliensternus: {
+  nombre: "Liliensternus",
+  img: "../img/liliensternus.png",
+  info: `
+<b>Periodo:</b> Triásico tardío (Noriano, ≈ 210–228 millones de años)<br>
+<b>Dieta:</b> Carnívoro (presas medianas como prosaurópodos y ornitisquios rápidos)<br>
+<b>Tamaño:</b> 4–5.15 m (400–515 cm / 13–16.9 ft)<br>
+<b>Dientes:</b> Serrados y afilados para cortar carne<br>
+<b>Velocidad:</b> Alta, uno de los más veloces del Triásico<br>
+<b>Significado:</b> "De Lilienstern" (por el paleontólogo Hugo Rühle von Lilienstern)<br><br>
+Depredador europeo del Triásico tardío. Uno de los terópodos más grandes y avanzados de su época, posiblemente transicional hacia formas jurásicas como Dilophosaurus.
+`
+},
+camposaurus: {
+  nombre: "Camposaurus",
+  img: "../img/camposaurus.png",
+  info: `
+<b>Periodo:</b> Triásico tardío (Noriano, ≈ 227–208 millones de años)<br>
+<b>Dieta:</b> Carnívoro (pequeños animales e insectos)<br>
+<b>Tamaño:</b> ≈ 2 m (200 cm / 6.5 ft)<br>
+<b>Dientes:</b> Afilados y posiblemente serrados<br>
+<b>Velocidad:</b> Ágil y rápido<br>
+<b>Significado:</b> "Lagarto de Camp" (por el paleontólogo Charles Lewis Camp)<br><br>
+Uno de los carnívoros más antiguos conocidos. Coelofisoide basal y posiblemente uno de los neoterópodos más tempranos de Norteamérica.
+`
+},
+chindesaurus: {
+  nombre: "Chindesaurus",
+  img: "../img/chindesaurus.png",
+  info: `
+<b>Periodo:</b> Triásico tardío (≈ 213–210 millones de años)<br>
+<b>Dieta:</b> Carnívoro (pequeños reptiles, anfibios y posiblemente mamíferos)<br>
+<b>Tamaño:</b> 2–2.3 m (200–230 cm / 6.6–7.5 ft)<br>
+<b>Dientes:</b> Pequeños, afilados y serrados<br>
+<b>Velocidad:</b> Alta agilidad y velocidad para cazar<br>
+<b>Significado:</b> "Lagarto fantasma" (de "chindi" = espíritu maligno/fantasma en navajo + "saurus")<br><br>
+Carnívoro primitivo norteamericano. Terópodo basal o herrerasáurido, uno de los primeros dinosaurios de Norteamérica, ágil y depredador de presas pequeñas.
+`
+}
+
+};
+
+function mostrarDino(id) {
+  document.getElementById("nombre").innerText = dinos[id].nombre;
+  document.getElementById("imagen").src = dinos[id].img;
+  document.getElementById("info").innerHTML = dinos[id].info;
+}
+</script>
+
+</body>
+</html>
+
