@@ -6,107 +6,294 @@
   <title>Mundo de los Dinosaurios</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-  <style>
-    :root{ --neon:#b6ff5c; --neon2:#5cffc8; --txt:#e9f1ea; }
-    *{box-sizing:border-box}
-    body{
-      margin:0; min-height:100vh; display:flex; flex-direction:column;
-      font-family:"Space Grotesk",system-ui,sans-serif; color:var(--txt);
-      background:
-        radial-gradient(ellipse at 20% 0%, rgba(92,255,200,.12), transparent 55%),
-        linear-gradient(180deg, rgba(4,10,8,.80), rgba(4,10,8,.93)),
-        url("img/fondo.jpg") center/cover fixed no-repeat;
-    }
-    header{ text-align:center; padding:72px 20px 40px }
-    .tag{
-      display:inline-block; font-size:12px; letter-spacing:.3em; text-transform:uppercase; color:var(--neon);
-      border:1px solid rgba(182,255,92,.4); border-radius:999px; padding:7px 16px; margin-bottom:22px;
-      background:rgba(182,255,92,.07);
-    }
-    h1{
-      margin:0; font-weight:700; font-size:clamp(34px,6.5vw,72px); line-height:1.05; letter-spacing:-.02em;
-    }
-    h1 span{
-      background:linear-gradient(90deg,var(--neon),var(--neon2));
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-    }
-    header p{ margin:18px auto 0; max-width:600px; font-size:clamp(15px,2vw,19px); color:#a9bcaf }
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700;900&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
 
-    main{flex:1; padding:20px 20px 70px}
+  <style>
+    :root{
+      --ascua:#ff7a1a;      /* brasa */
+      --ambar:#e0a93b;      /* ámbar fósil */
+      --hueso:#d9cba6;      /* hueso viejo */
+      --piedra1:#3a342c;
+      --piedra2:#1d1a16;
+      --sangre:#7a1c10;
+      --mx:50vw; --my:30vh;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; min-height:100vh; display:flex; flex-direction:column; overflow-x:hidden;
+      font-family:"IM Fell English",Georgia,serif; color:var(--hueso);
+      background:#0b0906;
+    }
+
+    /* ---------- FONDO: paisaje oscurecido, como visto desde una cueva ---------- */
+    .fondo{
+      position:fixed; inset:0; z-index:-3;
+      background:url("img/fondo.jpg") center/cover no-repeat;
+      filter:sepia(.75) saturate(.8) brightness(.45) contrast(1.15);
+      transform:scale(1.04);
+    }
+    /* viñeta: bordes de la cueva */
+    .vineta{
+      position:fixed; inset:0; z-index:-2; pointer-events:none;
+      background:
+        radial-gradient(ellipse at 50% 35%, transparent 20%, rgba(5,3,1,.75) 70%, #050301 100%),
+        linear-gradient(180deg, rgba(5,3,1,.7), transparent 30%, transparent 60%, rgba(5,3,1,.9));
+    }
+    /* luz de antorcha que sigue al mouse */
+    .antorcha{
+      position:fixed; inset:0; z-index:-1; pointer-events:none; mix-blend-mode:screen;
+      background:radial-gradient(circle 380px at var(--mx) var(--my), rgba(255,140,40,.22), rgba(255,90,10,.07) 55%, transparent 75%);
+      animation:parpadeo 3.2s infinite alternate ease-in-out;
+    }
+    @keyframes parpadeo{ 0%{opacity:.8} 40%{opacity:1} 70%{opacity:.85} 100%{opacity:.97} }
+
+    /* brasas flotando */
+    .brasas{position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden}
+    .brasas i{
+      position:absolute; bottom:-12px; width:var(--s); height:var(--s); border-radius:50%;
+      background:radial-gradient(circle,#ffd27a,var(--ascua) 60%,transparent 70%);
+      box-shadow:0 0 8px 2px rgba(255,122,26,.6);
+      opacity:0; animation:subir var(--d) linear infinite; animation-delay:var(--w);
+    }
+    @keyframes subir{
+      0%{transform:translate(0,0); opacity:0}
+      10%{opacity:.9}
+      100%{transform:translate(var(--dx),-105vh); opacity:0}
+    }
+
+    /* ---------- CABECERA ---------- */
+    header{ position:relative; text-align:center; padding:70px 20px 34px }
+    .garras{
+      position:absolute; top:10px; width:150px; height:200px; opacity:.55; pointer-events:none;
+    }
+    .garras.izq{left:3%} .garras.der{right:3%; transform:scaleX(-1)}
+    .sello{
+      display:inline-block; font-family:"Cinzel",serif; font-weight:500; font-size:12px;
+      letter-spacing:.5em; text-transform:uppercase; color:var(--ambar);
+      padding:9px 0 9px .5em; margin-bottom:26px; position:relative;
+    }
+    .sello::before,.sello::after{
+      content:""; position:absolute; left:50%; width:140px; height:1px; margin-left:-70px;
+      background:linear-gradient(90deg,transparent,var(--ambar),transparent);
+    }
+    .sello::before{top:0} .sello::after{bottom:0}
+
+    h1{
+      margin:0; font-family:"Cinzel Decorative","Cinzel",serif; font-weight:900;
+      font-size:clamp(32px,6.2vw,76px); line-height:1.08; letter-spacing:.04em; text-transform:uppercase;
+      color:#e9dcb4;
+      text-shadow:
+        0 -2px 0 rgba(0,0,0,.9),
+        0 3px 0 #000,
+        0 0 22px rgba(255,122,26,.55),
+        0 0 60px rgba(255,90,10,.35);
+      animation:latido 4s infinite ease-in-out;
+    }
+    @keyframes latido{ 50%{ text-shadow:0 -2px 0 rgba(0,0,0,.9),0 3px 0 #000,0 0 30px rgba(255,122,26,.8),0 0 80px rgba(255,90,10,.5) } }
+    h1 .ojo{
+      display:inline-block; width:.62em; height:.62em; vertical-align:middle; margin:0 .08em .12em;
+      border-radius:50%;
+      background:radial-gradient(circle at 50% 50%, #120600 0 14%, transparent 15%),
+                 radial-gradient(circle, #ffb43a 0 40%, #e0651a 70%, #5a1a05 100%);
+      box-shadow:0 0 14px 3px rgba(255,140,30,.8);
+    }
+    .lema{
+      font-style:italic; font-size:clamp(16px,2.3vw,22px); margin:20px auto 0; max-width:660px;
+      color:#bfae85; text-shadow:0 2px 6px #000;
+    }
+    .div{display:flex; align-items:center; justify-content:center; gap:16px; margin-top:26px; color:var(--ambar); font-size:22px}
+    .div::before,.div::after{content:""; width:min(120px,18vw); height:1px; background:linear-gradient(90deg,transparent,var(--ambar))}
+    .div::after{transform:scaleX(-1)}
+
+    /* ---------- MENÚ: LOSAS DE PIEDRA ---------- */
+    main{flex:1; padding:14px 20px 70px}
     .menu{
-      max-width:1100px; margin:0 auto;
-      display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:22px;
+      max-width:1120px; margin:0 auto;
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(245px,1fr)); gap:28px;
     }
-    .card{
-      position:relative; display:block; text-decoration:none; color:inherit; overflow:hidden;
-      padding:30px 26px; border-radius:20px;
-      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12);
-      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-      transition:transform .25s, border-color .25s, box-shadow .25s, background .25s;
+    .losa{
+      --brillo:0;
+      position:relative; display:flex; flex-direction:column; align-items:center; text-align:center;
+      text-decoration:none; color:inherit; padding:34px 24px 30px; isolation:isolate;
+      background:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+        radial-gradient(ellipse at 30% 0%, #4b4337 0%, transparent 60%),
+        linear-gradient(170deg,var(--piedra1),var(--piedra2));
+      background-blend-mode:overlay,normal,normal;
+      border:2px solid #0a0805;
+      border-radius:6px 14px 8px 12px;
+      box-shadow:
+        inset 0 2px 0 rgba(255,235,190,.12),
+        inset 0 -6px 14px rgba(0,0,0,.6),
+        inset 0 0 40px rgba(0,0,0,.45),
+        0 18px 34px rgba(0,0,0,.85);
+      transition:transform .3s, box-shadow .3s;
+      clip-path:polygon(0 3%, 4% 0, 38% 1.5%, 70% 0, 100% 2%, 99% 40%, 100% 78%, 98% 100%, 62% 98.5%, 30% 100%, 2% 99%, 0 70%, 1.5% 35%);
     }
-    .card::after{
-      content:""; position:absolute; inset:auto -40% -60% -40%; height:80%;
-      background:radial-gradient(closest-side, rgba(182,255,92,.25), transparent);
-      opacity:0; transition:opacity .3s;
+    /* grietas */
+    .losa::before{
+      content:""; position:absolute; inset:0; z-index:-1; opacity:.5; pointer-events:none;
+      background:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 120' preserveAspectRatio='none'><path d='M0 18 L14 24 L22 20 L34 30' stroke='%23000' stroke-width='.7' fill='none'/><path d='M100 88 L84 96 L78 90 L66 104 L60 100' stroke='%23000' stroke-width='.7' fill='none'/><path d='M34 30 L38 44 L30 50' stroke='%23000' stroke-width='.45' fill='none'/></svg>") center/100% 100% no-repeat;
     }
-    .card:hover,.card:focus-visible{
-      transform:translateY(-6px); border-color:var(--neon); background:rgba(255,255,255,.08);
-      box-shadow:0 0 0 1px rgba(182,255,92,.4), 0 18px 45px rgba(0,0,0,.55), 0 0 30px rgba(182,255,92,.18);
+    /* resplandor ámbar al pasar */
+    .losa::after{
+      content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:0;
+      background:radial-gradient(ellipse at 50% 100%, rgba(255,122,26,.42), transparent 70%);
+      transition:opacity .35s;
     }
-    .card:hover::after,.card:focus-visible::after{opacity:1}
-    .card:focus-visible{outline:2px solid var(--neon); outline-offset:3px}
-    .ico{
-      width:56px; height:56px; display:grid; place-items:center; font-size:28px; border-radius:16px;
-      background:linear-gradient(135deg,rgba(182,255,92,.22),rgba(92,255,200,.12));
-      border:1px solid rgba(182,255,92,.35); margin-bottom:20px;
+    .losa:hover,.losa:focus-visible{
+      transform:translateY(-10px) rotate(-.6deg);
+      box-shadow:
+        inset 0 2px 0 rgba(255,235,190,.2),
+        inset 0 -6px 14px rgba(0,0,0,.6),
+        inset 0 0 40px rgba(0,0,0,.35),
+        0 26px 44px rgba(0,0,0,.9),
+        0 0 40px rgba(255,122,26,.28);
     }
-    .card h2{margin:0 0 8px; font-size:22px; font-weight:700}
-    .card p{margin:0 0 22px; color:#a9bcaf; font-size:15px; line-height:1.5}
-    .go{color:var(--neon); font-weight:500; font-size:14px; position:relative; z-index:1}
-    .go::after{content:" →"; transition:margin .2s}
-    .card:hover .go::after{margin-left:6px}
-    footer{text-align:center; padding:24px; color:#6f8576; font-size:13px; border-top:1px solid rgba(255,255,255,.08)}
+    .losa:hover::after,.losa:focus-visible::after{opacity:1}
+    .losa:focus-visible{outline:3px solid var(--ambar); outline-offset:5px}
+
+    .num{
+      font-family:"Cinzel",serif; font-weight:700; font-size:13px; letter-spacing:.45em; padding-left:.45em;
+      color:var(--ambar); opacity:.85;
+    }
+    .rel{ /* emoji "tallado" en piedra */
+      font-size:54px; margin:14px 0 10px; line-height:1;
+      filter:grayscale(1) sepia(.7) brightness(.85) contrast(1.3) drop-shadow(0 -1px 0 rgba(0,0,0,.9)) drop-shadow(0 2px 0 rgba(255,235,190,.15));
+      transition:filter .35s, transform .35s;
+    }
+    .losa:hover .rel,.losa:focus-visible .rel{
+      filter:grayscale(.2) sepia(.2) brightness(1.05) drop-shadow(0 0 14px rgba(255,140,30,.85));
+      transform:scale(1.1);
+    }
+    .losa h2{
+      margin:0 0 10px; font-family:"Cinzel",serif; font-weight:900; font-size:22px; letter-spacing:.12em; text-transform:uppercase;
+      color:#d8c89a; text-shadow:0 -1px 0 #000, 0 1px 0 rgba(255,235,190,.15);
+    }
+    .losa p{ margin:0 0 22px; font-size:16.5px; line-height:1.45; color:#a89a78; flex:1 }
+    .entrar{
+      font-family:"Cinzel",serif; font-weight:700; font-size:12px; letter-spacing:.35em; padding-left:.35em; text-transform:uppercase;
+      color:var(--ambar); border:1px solid rgba(224,169,59,.55); padding:9px 18px 9px 22px; border-radius:2px;
+      transition:background .25s,color .25s,box-shadow .25s;
+    }
+    .losa:hover .entrar,.losa:focus-visible .entrar{
+      background:var(--ambar); color:#1a1209; box-shadow:0 0 18px rgba(224,169,59,.6);
+    }
+
+    footer{
+      text-align:center; padding:26px 20px; font-size:15px; font-style:italic; color:#7d725a;
+      border-top:1px solid rgba(224,169,59,.3);
+      background:linear-gradient(180deg,transparent,rgba(0,0,0,.6));
+    }
+
+    /* ---------- móvil y accesibilidad ---------- */
+    @media (max-width:640px){
+      header{padding-top:54px}
+      .garras{width:90px; height:130px; opacity:.4}
+      .menu{gap:22px}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .antorcha,h1,.brasas i{animation:none}
+      .brasas{display:none}
+      .losa,.rel{transition:none}
+    }
   </style>
 </head>
 <body>
 
+<div class="fondo"></div>
+<div class="vineta"></div>
+<div class="antorcha"></div>
+<div class="brasas" id="brasas" aria-hidden="true"></div>
+
 <header>
-  <div class="tag">Enciclopedia prehistórica</div>
-  <h1>Mundo de los <span>Dinosaurios</span></h1>
-  <p>Registro ancestral de las criaturas que dominaron la Tierra</p>
+  <!-- marcas de garra -->
+  <svg class="garras izq" viewBox="0 0 150 200" aria-hidden="true">
+    <g fill="none" stroke="#7a1c10" stroke-linecap="round">
+      <path d="M30 10 C 50 70, 40 130, 70 190" stroke-width="7"/>
+      <path d="M62 4 C 82 66, 74 128, 104 186" stroke-width="6"/>
+      <path d="M94 12 C 112 70, 106 126, 134 180" stroke-width="5"/>
+    </g>
+  </svg>
+  <svg class="garras der" viewBox="0 0 150 200" aria-hidden="true">
+    <g fill="none" stroke="#7a1c10" stroke-linecap="round">
+      <path d="M30 10 C 50 70, 40 130, 70 190" stroke-width="7"/>
+      <path d="M62 4 C 82 66, 74 128, 104 186" stroke-width="6"/>
+      <path d="M94 12 C 112 70, 106 126, 134 180" stroke-width="5"/>
+    </g>
+  </svg>
+
+  <div class="sello">Museo de Historia Natural</div>
+  <h1>Mundo de los<br>Dinosaurios</h1>
+  <p class="lema">Registro ancestral de las criaturas que dominaron la Tierra</p>
+  <div class="div">🦴</div>
 </header>
 
 <main>
   <nav class="menu" aria-label="Secciones">
-    <a class="card" href="paginas/carnivoros.html">
-      <div class="ico">🦖</div>
+
+    <a class="losa" href="paginas/carnivoros.html">
+      <span class="num">I</span>
+      <span class="rel">🦖</span>
       <h2>Carnívoros</h2>
       <p>Los grandes depredadores del Triásico, Jurásico y Cretácico.</p>
-      <span class="go">Explorar</span>
+      <span class="entrar">Entrar</span>
     </a>
-    <a class="card" href="paginas/herbivoros.html">
-      <div class="ico">🌿</div>
+
+    <a class="losa" href="paginas/herbivoros.html">
+      <span class="num">II</span>
+      <span class="rel">🌿</span>
       <h2>Herbívoros</h2>
       <p>Gigantes de cuello largo, cuernos y armaduras que comían plantas.</p>
-      <span class="go">Explorar</span>
+      <span class="entrar">Entrar</span>
     </a>
-    <a class="card" href="paginas/eras.html">
-      <div class="ico">🌋</div>
+
+    <a class="losa" href="paginas/eras.html">
+      <span class="num">III</span>
+      <span class="rel">🌋</span>
       <h2>Eras Geológicas</h2>
       <p>Un viaje de más de 180 millones de años en tres grandes eras.</p>
-      <span class="go">Explorar</span>
+      <span class="entrar">Entrar</span>
     </a>
-    <a class="card" href="paginas/curiosidades.html">
-      <div class="ico">🔎</div>
+
+    <a class="losa" href="paginas/curiosidades.html">
+      <span class="num">IV</span>
+      <span class="rel">🦴</span>
       <h2>Curiosidades</h2>
-      <p>Datos sorprendentes que quizá no sabías sobre los dinosaurios.</p>
-      <span class="go">Explorar</span>
+      <p>Secretos y datos asombrosos desenterrados del pasado.</p>
+      <span class="entrar">Entrar</span>
     </a>
+
   </nav>
 </main>
 
-<footer>Página educativa sobre dinosaurios</footer>
+<footer>Excavación en curso · Página educativa sobre dinosaurios</footer>
+
+<script>
+  // Brasas
+  (function(){
+    var c = document.getElementById('brasas');
+    for (var i = 0; i < 26; i++){
+      var e = document.createElement('i');
+      e.style.left = (Math.random()*100) + '%';
+      e.style.setProperty('--s', (2 + Math.random()*4).toFixed(1) + 'px');
+      e.style.setProperty('--d', (7 + Math.random()*9).toFixed(1) + 's');
+      e.style.setProperty('--w', (-Math.random()*14).toFixed(1) + 's');
+      e.style.setProperty('--dx', ((Math.random()-.5)*160).toFixed(0) + 'px');
+      c.appendChild(e);
+    }
+  })();
+
+  // Luz de antorcha que sigue al mouse / dedo
+  (function(){
+    var r = document.documentElement;
+    function mover(x, y){ r.style.setProperty('--mx', x + 'px'); r.style.setProperty('--my', y + 'px'); }
+    window.addEventListener('mousemove', function(e){ mover(e.clientX, e.clientY); });
+    window.addEventListener('touchmove', function(e){ var t = e.touches[0]; mover(t.clientX, t.clientY); }, {passive:true});
+  })();
+</script>
 
 </body>
 </html>
